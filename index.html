@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коледен Портфейл</title>
+    <!-- Google Fonts: Pacifico (título) y Quicksand (texto) para toque suave -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="organizer-container">
+        <!-- Pestañas (Tabs) en la parte superior -->
+        <nav class="folder-tabs">
+            <button onclick="openFolder('inicio', 1)" class="tab-btn active">Main</button>
+            <button onclick="openFolder('seccion1', 2)" class="tab-btn">Баба</button>
+            <button onclick="openFolder('seccion2', 3)" class="tab-btn">Мама</button>
+            <button onclick="openFolder('seccion3', 4)" class="tab-btn">Тати</button>
+            <button onclick="openFolder('seccion4', 5)" class="tab-btn">Дени</button>
+        </nav>
+
+        <!-- Cuerpo de la Carpeta (El fondo cambia de color) -->
+        <main class="folder-body" id="folderBody">
+            <div class="paper-sheet">
+
+                <!-- Bloqueo de Contraseña -->
+                <div id="lockScreen" class="lock-screen" style="display: none;">
+                    <div class="lock-content text-center">
+                        <h2>🔒 Защитено съдържание</h2>
+                        <p>Моля, въведете вълшебната парола, за да си видите коледната карта.</p>
+                        <input type="password" id="passwordInput" placeholder="Парола..." class="lock-input">
+                        <button onclick="checkPassword()" class="sticker-btn">Отключи</button>
+                        <p id="errorMsg" class="error-msg"></p>
+                    </div>
+                </div>
+
+                <!-- Sección Inicio -->
+                <div id="inicio" class="section-content active">
+                    <div class="text-center">
+                        <h1>Весела Коледа и Честита Нова Година!</h1>
+                        <p class="subtitle">Добре дошли в моя сайт. Детето нямаше пари и реши да ви направи страница с
+                            коледни картички. Цъкнете върху вашето име, за да я видите.</p>
+
+                        <!-- Cuenta Regresiva -->
+                        <div id="countdown" class="countdown-container">
+                            <div class="time-block">
+                                <span id="days">00</span> Дни
+                            </div>
+                            <div class="time-block">
+                                <span id="hours">00</span> Часа
+                            </div>
+                            <div class="time-block">
+                                <span id="minutes">00</span> МИН
+                            </div>
+                            <div class="time-block">
+                                <span id="seconds">00</span> СЕК
+                            </div>
+                        </div>
+
+                        <div class="decoration">🎄</div>
+                    </div>
+                </div>
+
+                <!-- Sección 1: Баба -->
+                <div id="seccion1" class="section-content" data-locked="true">
+                    <!-- Contenido inyectado por JS -->
+                    <div class="decoration">🎁</div>
+                </div>
+
+                <!-- Sección 2: Мама -->
+                <div id="seccion2" class="section-content" data-locked="true">
+                    <!-- Contenido inyectado por JS -->
+                    <div class="decoration">⭐</div>
+                </div>
+
+                <!-- Sección 3: Тати -->
+                <div id="seccion3" class="section-content" data-locked="true">
+                    <!-- Contenido inyectado por JS -->
+                    <div class="decoration">❄️</div>
+                </div>
+
+                <!-- Sección 4: Дени -->
+                <div id="seccion4" class="section-content" data-locked="true">
+                    <!-- Contenido inyectado por JS -->
+                    <div class="decoration">✉️</div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
