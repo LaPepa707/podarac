@@ -1,0 +1,445 @@
+:root {
+    /* Fondo General */
+    --bg-app: #fdfbf7;
+
+    /* Colores de las Carpetas (Pastel) */
+    --folder-1: #ffb7b2;
+    /* Rojo suave */
+    --folder-2: #b5ead7;
+    /* Menta */
+    --folder-3: #e2f0cb;
+    /* Verde lima suave */
+    --folder-4: #ffdac1;
+    /* Melocotón */
+    --folder-5: #e0bbe4;
+    /* Lavanda */
+
+    /* Variable dinámica para el fondo activo (se cambiará con JS o CSS) */
+    --active-folder-bg: var(--folder-1);
+
+    --text-color: #5d5d5d;
+    --text-white: #ffffff;
+    --shadow-folder: 0 -5px 15px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* El contenedor principal que actúa como el "organizador" */
+.organizer-container {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 10px;
+    /* Espacio mínimo para las pestañas */
+}
+
+/* --- PESTAÑAS (TABS) --- */
+.folder-tabs {
+    display: flex;
+    width: 100%;
+    padding: 0;
+    z-index: 10;
+}
+
+.tab-btn {
+    flex: 1;
+    /* Distribuye el espacio equitativamente */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px 5px;
+    font-family: 'Pacifico', cursive;
+    /* Fuente manuscrita para las etiquetas */
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 15px 15px 0 0;
+    margin-right: -10px;
+    /* Superposición ligera estilo carpetas */
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), margin-top 0.3s;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    /* Estado inactivo "hundido" */
+
+    /* Clip Path para dar forma trapezoidal suave (opcional, pero border-radius funciona bien) */
+}
+
+/* Colores específicos para cada pestaña */
+.tab-btn:nth-child(1) {
+    background-color: var(--folder-1);
+    z-index: 5;
+}
+
+.tab-btn:nth-child(2) {
+    background-color: var(--folder-2);
+    z-index: 4;
+}
+
+.tab-btn:nth-child(3) {
+    background-color: var(--folder-3);
+    z-index: 3;
+}
+
+.tab-btn:nth-child(4) {
+    background-color: var(--folder-4);
+    z-index: 2;
+}
+
+.tab-btn:nth-child(5) {
+    background-color: var(--folder-5);
+    z-index: 1;
+}
+
+.tab-btn:hover {
+    margin-top: 5px;
+}
+
+.tab-btn.active {
+    margin-top: 0;
+    /* Sube la pestaña */
+    z-index: 20;
+    /* La trae al frente */
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: #fff;
+}
+
+/* --- CUERPO DE LA CARPETA (CONTENIDO) --- */
+.folder-body {
+    flex: 1;
+    background-color: var(--active-folder-bg);
+    /* Cambiará dinámicamente */
+    border-radius: 0;
+    /* La esquina superior izquierda debe conectar con la pestaña activa, 
+       pero para simplificar visualmente en CSS, hacemos un bloque sólido 
+       del mismo color que la pestaña activa. */
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    transition: background-color 0.4s ease;
+    overflow-y: auto;
+    z-index: 15;
+}
+
+/* Decoración "papel" dentro de la carpeta */
+.paper-sheet {
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+    padding: 60px;
+    /* Más padding para que parezca una hoja */
+    display: block;
+    /* IMPORTANTE: Block para que el scroll funcione bien con texto largo */
+    position: relative;
+    overflow-y: auto;
+    /* Centrado del contenido interno */
+    text-align: center;
+}
+
+/* Estilos de Texto */
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #ddd;
+    padding-bottom: 10px;
+    display: inline-block;
+    /* Revertido a inline-block para asegurar visibilidad */
+    max-width: 100%;
+    /* Evitar desbordamiento */
+    word-wrap: break-word;
+    /* Romper palabras largas si es necesario */
+}
+
+p.subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 650px;
+    margin: 30px auto;
+    /* Auto margin para centrar en bloque */
+    text-align: justify;
+    padding-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+/* Cuenta Regresiva */
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    color: var(--folder-1);
+    font-size: 0.9rem;
+}
+
+.time-block span {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    font-family: 'Pacifico', cursive;
+    line-height: 1;
+}
+
+.decoration {
+    font-size: 4rem;
+    margin-top: 30px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Botón decorativo dentro de la hoja */
+.sticker-btn {
+    background-color: var(--text-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    margin-top: 30px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    transform: rotate(-2deg);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.sticker-btn:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+/* Utilidades de visibilidad con animación */
+.section-content {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+    width: 100%;
+    /* height: 100%;  -- Quitamos altura fija para permitir scroll natural */
+    /* Flex para centrar contenido verticalmente si es poco */
+    /* flex-direction: column; -- Quitamos flex vertical forzado */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.section-content.active {
+    display: block;
+    /* Bloque normal para que fluya de arriba a abajo */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Scrollbar personalizado general */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .folder-tabs {
+        flex-wrap: nowrap;
+        /* Evitar que se apilen en dos filas si es posible, mejor scroll o ajustar tamaño */
+        overflow-x: auto;
+        /* Permitir scroll horizontal si las pestañas son muchas */
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
+        /* Espacio para scrollbar si aparece */
+    }
+
+    .folder-tabs::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .folder-tabs::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+
+    .tab-btn {
+        font-size: 0.85rem;
+        padding: 12px 8px;
+        min-width: auto;
+        flex: 0 0 auto;
+        /* No encoger ni crecer demasiado, respetar contenido */
+        white-space: nowrap;
+    }
+
+    .folder-body {
+        padding: 15px;
+        border-radius: 0;
+    }
+
+    .paper-sheet {
+        padding: 20px 15px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .text-content p {
+        font-size: 1.1rem;
+        /* Un poco más grande para leer mejor */
+        text-align: left;
+        padding-bottom: 50px;
+        /* Espacio extra abajo para que no se corte */
+    }
+
+    .paper-sheet {
+        padding: 20px 15px;
+        border-radius: 10px;
+        overflow-y: auto;
+        /* Asegurar scroll interno si el texto es muy largo */
+        display: block;
+        /* Cambiar flex a block en móvil para mejor flow de texto largo */
+    }
+}
+
+/* --- PANTALLA DE BLOQUEO --- */
+.lock-screen {
+    display: none;
+    /* Controlado por JS, pero por defecto oculto si no se necesita */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.lock-screen.active {
+    display: flex;
+}
+
+.lock-input {
+    padding: 12px 20px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    transition: border-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.lock-input:focus {
+    border-color: var(--folder-1);
+}
+
+.error-msg {
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-top: 15px;
+    min-height: 25px;
+    font-size: 0.9rem;
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
