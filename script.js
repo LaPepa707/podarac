@@ -163,6 +163,9 @@ function checkPassword() {
         sectionDiv.innerHTML = html;
         sectionDiv.setAttribute('data-locked', 'false');
 
+        // Volver a mostrar la sección desbloqueada (quedó desactivada al abrir el lock)
+        sectionDiv.classList.add('active');
+
         // Ocultar lock screen
         lockScreen.style.display = "none";
         lockScreen.classList.remove('active');
