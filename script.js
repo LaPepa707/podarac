@@ -153,7 +153,6 @@ function checkPassword() {
         // Ocultar lock screen
         lockScreen.style.display = "none";
         lockScreen.classList.remove('active');
-        lockScreen.style.pointerEvents = "none";
 
         // 🔥 VOLVER A ABRIR LA SECCIÓN
         openFolder(targetId, targetColor);
