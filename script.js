@@ -49,19 +49,6 @@ function getDecoration(id) {
 function openFolder(sectionId, colorIndex) {
     const now = new Date().getTime();
 
-    // Restricción de acceso si no es la página de inicio y aúm no es la fecha (comprobación extra)
-    if (sectionId !== 'inicio' && now < TARGET_DATE) {
-        // Redirigir visualmente al inicio si intentan cambiar
-        alert("🎁 Още не е Коледа! Търпение!");
-        // Revertir a inicio si se intentó cambiar
-        const activeTabs = document.querySelectorAll('.tab-btn.active');
-        if (activeTabs.length > 0 && activeTabs[0].innerText !== "Main") {
-            // Simular click en inicio si estamos navegando
-            document.querySelector('.tab-btn').click();
-        }
-        return;
-    }
-
     // 1. Manejar Visibilidad del Contenido
     const contents = document.querySelectorAll('.section-content');
     contents.forEach(content => {
@@ -163,14 +150,14 @@ function checkPassword() {
         sectionDiv.innerHTML = html;
         sectionDiv.setAttribute('data-locked', 'false');
 
-        // Volver a mostrar la sección desbloqueada (quedó desactivada al abrir el lock)
-        sectionDiv.classList.add('active');
-
         // Ocultar lock screen
         lockScreen.style.display = "none";
         lockScreen.classList.remove('active');
+        lockScreen.style.pointerEvents = "none";
 
-        // Contenido ya activo
+        // 🔥 VOLVER A ABRIR LA SECCIÓN
+        openFolder(targetId, targetColor);
+
     } else {
         // Error
         errorMsg.innerText = "Грешна парола";
