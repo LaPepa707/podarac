@@ -2,22 +2,16 @@
 require_once 'content.php';
 session_start();
 
-// Destruir sesión completamente al cargar (Requerimiento: volver a bloquear al actualizar)
-$_SESSION = [];
-if (session_id() != "" || isset($_COOKIE[session_name()])) {
-    setcookie(session_name(), '', time() - 2592000, '/');
-}
-session_destroy();
-// Iniciar nueva sesión limpia para el flujo actual
-session_start();
-
 // Cabeceras para evitar caché (asegura que el navegador recargue el PHP)
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+
+// Siempre iniciamos las secciones como bloqueadas al recargar la página
+// para que las cartas se vuelvan a proteger tras un reinicio/refresh.
 function isUnlocked($sectionId)
 {
-    return isset($_SESSION['unlocked_sections'][$sectionId]) && $_SESSION['unlocked_sections'][$sectionId] === true;
+    return false;
 }
 
 function getDecoration($id)

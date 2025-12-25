@@ -7,7 +7,7 @@ const folderColors = [
     '--folder-5'  // Contacto
 ];
 
-const TARGET_DATE = new Date('2025-12-24T00:00:00').getTime();
+const TARGET_DATE = new Date('2024-12-24T00:00:00').getTime();
 
 // Configuración de Contenido y Contraseñas (Migrado para GitHub Pages)
 const PASSWORDS = {
